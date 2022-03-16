@@ -1,4 +1,3 @@
-import { useConstant } from './useConstant'
 import { useUnmount } from './useUnmount'
 
 type Arr = readonly any[]
@@ -9,7 +8,7 @@ export interface Subscriber {
 }
 
 export interface Pub<T extends Arr = any> {
-  id: Symbol
+  id: symbol
   listeners: Set<Callback<T>>
   subscribe(cb: Callback<T>): Subscriber
   send(...args: [...T]): void
@@ -52,47 +51,35 @@ export function sub(opts: SubOpts) {
   const id = Symbol()
   const subs = new Set<Subscriber>()
 
-  function useListen() {
-    const on = useConstant(() => {
-      return function <T extends Arr>(pub: Pub<T>, cb: Callback<T>) {
-        if (opts.register.every((i) => i.id !== pub.id)) {
-          throw new Error('This publisher is not register on your subscriber')
-        }
-
-        const sub = pub.subscribe(async (...args) => {
-          await cb(...args)
-        })
-
-        subs.add(sub)
-      }
-    })
-
-    function off() {
-      for (const sub of subs) {
-        sub.unsubscribe()
-      }
+  function on<T extends Arr>(pub: Pub<T>, cb: Callback<T>) {
+    if (opts.register.every((i) => i.id !== pub.id)) {
+      throw new Error('This publisher is not register on your subscriber')
     }
 
-    return {
-      id,
-      on,
-      off,
+    const sub = pub.subscribe(async (...args) => {
+      await cb(...args)
+    })
+
+    subs.add(sub)
+  }
+
+  function off() {
+    for (const sub of subs) {
+      sub.unsubscribe()
     }
   }
 
   return {
     id,
-    useListen,
+    on,
+    off,
   }
 }
 
-export function useSub(sub: Sub) {
-  const { useListen } = sub
-  const listen = useListen()
-
+export function useSub({ on, off }: Sub) {
   useUnmount(() => {
-    listen.off()
+    off()
   })
 
-  return listen
+  return { on }
 }
