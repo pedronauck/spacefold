@@ -39,29 +39,45 @@ $ yarn add spacefold
 Now you can start to create your publishers and subscribers
 
 ```tsx
-import { pub, sub, useSub } from 'spacefold'
+import { useState } from "react";
+import { pub, sub, useSub } from "spacefold";
 
-const sayHi = pub<string>()
+const inc = pub<number>();
+const dec = pub<number>();
 
-const loggerSub = sub({
-  // This is extremely important, you need to register your events inside your
-  // subscriber in order to be able to listen to them
-  register: [sayHi],
-})
+const counterSub = sub({
+  register: [inc, dec] // You need to register which events your subscriber accept
+});
 
-const App = () => {
-  const sub = useSub(loggerSub)
+const Counter = () => {
+  const [state, setState] = useState(0);
+  const sub = useSub(counterSub);
 
-  sub.on(sayHi, (text) => {
-    console.log(text) // Hi
-  })
+  sub.on(inc, (num) => {
+    setState(state + num);
+  });
+  sub.on(dec, (num) => {
+    setState(state - num);
+  });
 
-  return (
-    <div>
-      <button onClick={() => sayHi.send('Hi')}>Say Hi</button>
-    </div>
-  )
-}
+  return <div>{state}</div>;
+};
+
+const Decrement = () => (
+  <button onClick={() => dec.send(2)}>dec</button>
+);
+
+const Increment = () => (
+  <button onClick={() => inc.send(2)}>inc</button>
+);
+
+export const App = () => (
+  <div>
+    <Counter />
+    <Increment />
+    <Decrement />
+  </div>
+);
 ```
 
 Yes, simple as that, just a subscriber and a publisher!
