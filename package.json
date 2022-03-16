@@ -21,7 +21,7 @@
     "prepublishOnly": "pnpm run build",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "publish": "lerna publish"
+    "lerna:publish": "lerna publish"
   },
   "license": "MIT",
   "dependencies": {
@@ -33,7 +33,6 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
-    "@lerna/publish": "^4.0.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@types/jest": "^27.4.1",
