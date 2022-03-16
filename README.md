@@ -3,15 +3,17 @@
 🗣 Use Pub/Sub pattern inside your React applications easily!
 
 [![GitHub release](https://img.shields.io/github/release/pedronauck/spacefold.svg)]()
-[![Build Status](https://travis-ci.org/pedronauck/spacefold.svg?branch=master)](https://travis-ci.org/pedronauck/spacefold)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ebdcc3e942b14363a96438b41c770b32)](https://www.codacy.com/app/pedronauck/spacefold?utm_source=github.com&utm_medium=referral&utm_content=pedronauck/spacefold&utm_campaign=Badge_Grade)
 
 ## 📜 Table of content
 
+- [Demo](#--demo)
 - [Why](#--why)
-- [Solution](#--solution)
-- [Demos](#--demos)
-- [Usage](#--usage-demo)
+- [Usage](#--usage)
+- [Contribute](#--contribute)
+
+## 🔥 &nbsp; Demo
+
+Like always, a counter as a demo: [Counter Demo](https://codesandbox.io/s/spacefold-counter-6hcb7x?file=/src/index.tsx)
 
 ## 🧐 &nbsp; Why
 
@@ -21,7 +23,7 @@ Because of that I've beeing used a very simple implementation of an old pattern 
 
 #### ⚠️ Disclaimer
 
-| This is not intended to replace your state management library or something else. Use this with caution or you can became your system very hard to debug.
+> This is not intended to replace your state management library or something else. Use this with caution or you can became your system very hard to debug.
 
 ## 💻 &nbsp; Usage
 
@@ -42,7 +44,7 @@ import { pub, sub, useSub } from 'spacefold'
 const sayHi = pub<string>()
 
 const loggerSub = sub({
-  // This is extremaly important, you need to register your events inside your
+  // This is extremely important, you need to register your events inside your
   // subscriber in order to be able to listen to them
   register: [sayHi],
 })
