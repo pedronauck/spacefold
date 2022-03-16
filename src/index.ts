@@ -2,7 +2,7 @@ import { useConstant } from './useConstant'
 import { useUnmount } from './useUnmount'
 
 type Arr = readonly any[]
-type Callback<T extends Arr> = (...args: [...T]) => void
+type Callback<T extends Arr> = (...args: [...T]) => void | Promise<void>
 
 export interface Subscriber {
   unsubscribe: () => void
@@ -27,9 +27,9 @@ export function pub<T extends Arr>(): Pub<T> {
     id,
     listeners,
     send(...args: [...T]) {
-      listeners.forEach((listener) => {
+      for (const listener of listeners) {
         listener(...args)
-      })
+      }
     },
     subscribe(cb) {
       listeners.add(cb)
@@ -59,8 +59,8 @@ export function sub(opts: SubOpts) {
           throw new Error('This publisher is not register on your subscriber')
         }
 
-        const sub = pub.subscribe((...args) => {
-          cb(...args)
+        const sub = pub.subscribe(async (...args) => {
+          await cb(...args)
         })
 
         subs.add(sub)
