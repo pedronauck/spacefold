@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig((opts) => ({
-  name: 'use-pubsub',
+  name: 'spacefold',
   platform: 'browser',
   sourcemap: true,
   minify: !opts.watch,

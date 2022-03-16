@@ -1,5 +1,5 @@
 {
-  "name": "use-pubsub",
+  "name": "spacefold",
   "version": "0.0.0",
   "description": "Use Pub/Sub pattern inside your React applications easily",
   "publishConfig": {

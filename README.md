@@ -1,8 +1,10 @@
-# use-pubsub
+# spacefold
 
-[![GitHub release](https://img.shields.io/github/release/pedronauck/use-pubsub.svg)]()
-[![Build Status](https://travis-ci.org/pedronauck/use-pubsub.svg?branch=master)](https://travis-ci.org/pedronauck/use-pubsub)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ebdcc3e942b14363a96438b41c770b32)](https://www.codacy.com/app/pedronauck/use-pubsub?utm_source=github.com&utm_medium=referral&utm_content=pedronauck/use-pubsub&utm_campaign=Badge_Grade)
+🗣 Use Pub/Sub pattern inside your React applications easily!
+
+[![GitHub release](https://img.shields.io/github/release/pedronauck/spacefold.svg)]()
+[![Build Status](https://travis-ci.org/pedronauck/spacefold.svg?branch=master)](https://travis-ci.org/pedronauck/spacefold)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ebdcc3e942b14363a96438b41c770b32)](https://www.codacy.com/app/pedronauck/spacefold?utm_source=github.com&utm_medium=referral&utm_content=pedronauck/spacefold&utm_campaign=Badge_Grade)
 
 ## 📜 Table of content
 
@@ -29,13 +31,13 @@ Because of that I've beeing used a very simple implementation of an old pattern 
 Install as project dependency:
 
 ```bash
-$ yarn add use-pubsub
+$ yarn add spacefold
 ```
 
 Now you can start to create your publishers and subscribers
 
 ```tsx
-import { pub, sub, useSub } from 'use-pubsub'
+import { pub, sub, useSub } from 'spacefold'
 
 const sayHi = pub<string>()
 
