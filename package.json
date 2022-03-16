@@ -1,6 +1,6 @@
 {
   "name": "use-pubsub",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Use Pub/Sub pattern inside your React applications easily",
   "publishConfig": {
     "access": "public"
@@ -20,7 +20,8 @@
     "build": "tsup src/index.ts",
     "prepublishOnly": "pnpm run build",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "publish": "lerna publish"
   },
   "license": "MIT",
   "dependencies": {
@@ -32,6 +33,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
+    "@lerna/publish": "^4.0.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@types/jest": "^27.4.1",
