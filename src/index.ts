@@ -1,4 +1,5 @@
-import { useUnmount } from './useUnmount'
+import { useConstant } from './useConstant'
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
 
 type Arr = readonly any[]
 type Callback<T extends Arr> = (...args: [...T]) => void | Promise<void>
@@ -52,34 +53,29 @@ export function sub(opts: SubOpts) {
   const subs = new Set<Subscriber>()
 
   function on<T extends Arr>(pub: Pub<T>, cb: Callback<T>) {
-    if (opts.register.every((i) => i.id !== pub.id)) {
-      throw new Error('This publisher is not register on your subscriber')
-    }
+    useIsomorphicLayoutEffect(() => {
+      if (opts.register.every((i) => i.id !== pub.id)) {
+        throw new Error('This publisher is not register on your subscriber')
+      }
 
-    const sub = pub.subscribe(async (...args) => {
-      await cb(...args)
-    })
+      const sub = pub.subscribe(async (...args) => {
+        await cb(...args)
+      })
 
-    subs.add(sub)
-  }
-
-  function off() {
-    for (const sub of subs) {
-      sub.unsubscribe()
-    }
+      subs.add(sub)
+      return () => {
+        sub.unsubscribe()
+      }
+    }, [cb])
   }
 
   return {
     id,
     on,
-    off,
   }
 }
 
-export function useSub({ on, off }: Sub) {
-  useUnmount(() => {
-    off()
-  })
-
+export function useSub(sub: Sub) {
+  const on = useConstant(() => sub.on)
   return { on }
 }
